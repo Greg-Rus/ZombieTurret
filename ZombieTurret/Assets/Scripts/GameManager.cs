@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public int StartingCash = 100;
 
     public float BaseEnemySpawnDelay = 2;
-    public float SpawnDelayFactor;
+    public float SpawnDelayFactor = 0.8f;
 
     public ReactiveProperty<int> HealthUpgradeCostReactive;
     public ReactiveProperty<int> NumberOfHealthUpgradesReactive;
