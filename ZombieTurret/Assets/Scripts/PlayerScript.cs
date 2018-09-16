@@ -72,7 +72,8 @@ public class PlayerScript : MonoBehaviour
         BroadcastLife();
         if (_life <= 0)
         {
-            MessageBroker.Default.Publish(new PlayerDiedEvent());
+            AudioSingleton.Instance.playSounds(SoundTypes.PlayerDead);
+            MessageBroker.Default.Publish(new PlayerDiedEvent()); ;
             Debug.Log("Player died");
         }
     }
@@ -89,6 +90,7 @@ public class PlayerScript : MonoBehaviour
         var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
         var bullet = Instantiate(bulletPrefab, transform.position, q);
         var arrowScript = bullet.GetComponent<ArrowScript>();
+        AudioSingleton.Instance.playSounds(SoundTypes.Arrow);
         arrowScript.Damage = Manager.Damage;
         bullet.GetComponentInChildren<SpriteRenderer>().sprite = GetSpriteForTurretTear();
         bullet.transform.SetParent(_shaftSpriteRenderer.transform);

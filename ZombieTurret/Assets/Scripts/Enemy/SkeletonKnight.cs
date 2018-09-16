@@ -35,6 +35,7 @@ namespace Enemy
 
         private void AttackLogic(float distance)
         {
+            AudioSingleton.Instance.playSounds(SoundTypes.Attack);
             if (distance <= AttackDistance)
             {
                 Attack();
