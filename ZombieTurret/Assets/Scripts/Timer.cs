@@ -10,6 +10,9 @@ using System;
 
 public class Timer : MonoBehaviour
 {
+    public float MaxMin;
+    public float MaxSec;
+
 
     public TextMeshProUGUI timer;
     public float minutes = 0;
@@ -18,6 +21,8 @@ public class Timer : MonoBehaviour
 
     public void Start()
     {
+        minutes = MaxMin;
+        seconds = MaxSec;
         timer.text = "Timeleft: " + string.Format("{0}:{1}:{2}", minutes, seconds, (int)milliseconds);
         MessageBroker.Default.Receive<PlayerDiedEvent>().Subscribe(_ => {
             OnEndGame();
@@ -33,8 +38,13 @@ public class Timer : MonoBehaviour
 
     public void Reset()
     {
+<<<<<<< HEAD
         minutes = 0;
         seconds = 30;
+=======
+        minutes = MaxMin;
+        seconds = MaxSec;
+>>>>>>> 0ebc1a2fc1e281c7ecc458d1bdf01a7f6a59f5fe
         milliseconds = 0;
         this.enabled = true;
     }

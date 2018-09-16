@@ -19,6 +19,7 @@ namespace Assets.Scripts.UI_Scripts
         public TextMeshProUGUI HealCost;
         public TextMeshProUGUI TurretUpgradeCost;
         public TextMeshProUGUI NumberOfTurretUpgrades;
+        public TextMeshProUGUI NumberOfWaves;
 
         public GameManager Manager;
 
@@ -36,6 +37,7 @@ namespace Assets.Scripts.UI_Scripts
             BuyHealthUpgrade.BindTo(Healthupgrade);
             Healthupgrade.OnClickAsObservable().Subscribe(_ =>
             {
+                AudioSingleton.Instance.playSounds(SoundTypes.ShopMenu);
                 Manager.OnUpgradeHealth();
             }).AddTo(gameObject);
 
@@ -43,6 +45,7 @@ namespace Assets.Scripts.UI_Scripts
             BuyDamageUpgrade.BindTo(DamageUpgraderade);
             DamageUpgraderade.OnClickAsObservable().Subscribe(_ =>
             {
+                AudioSingleton.Instance.playSounds(SoundTypes.ShopMenu);
                 Manager.OnUpgradeDamage();
             }).AddTo(gameObject);
 
@@ -50,6 +53,7 @@ namespace Assets.Scripts.UI_Scripts
             BuyHeal.BindTo(Heal);
             Heal.OnClickAsObservable().Subscribe(_ =>
             {
+                AudioSingleton.Instance.playSounds(SoundTypes.ShopMenu);
                 Manager.OnHeal();
             }).AddTo(gameObject);
 
@@ -57,6 +61,7 @@ namespace Assets.Scripts.UI_Scripts
             BuyTurretUpgrade.BindTo(UpgradeTurret);
             UpgradeTurret.OnClickAsObservable().Subscribe(_ =>
             {
+                AudioSingleton.Instance.playSounds(SoundTypes.ShopMenu);
                 Manager.OnTurretUpgrade();
             }).AddTo(gameObject);
 
@@ -73,6 +78,8 @@ namespace Assets.Scripts.UI_Scripts
             Manager.TurretUpgradeCostReactive.Subscribe(val => TurretUpgradeCost.text = val.ToString())
                 .AddTo(gameObject);
             HealCost.text = Manager.HealCost.ToString();
+
+            Manager.RoundReactiveProperty.Subscribe(lvl => { NumberOfWaves.text = "Wave:" + lvl; });
         }
 	
         // Update is called once per frame

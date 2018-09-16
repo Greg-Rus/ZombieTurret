@@ -33,5 +33,10 @@ public class GoldPickup : AbstractEnemy {
         
     }
 
-    
+    public void OnDestroy()
+    {
+        AudioSingleton.Instance.playSounds(SoundTypes.PickupGold);
+    }
+
+
 }

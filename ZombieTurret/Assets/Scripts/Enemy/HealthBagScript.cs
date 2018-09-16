@@ -9,6 +9,7 @@ public class HealthBagScript : AbstractEnemy {
     protected override void OnDeath() {
 
         var death = Instantiate(_deathEffect, transform, false);
+        AudioSingleton.Instance.playSounds(SoundTypes.PickupHealth);
         death.transform.SetParent(null);
         _movementDisposable.Dispose();
         MessageBroker.Default.Publish(new HealPlayerEvent());
