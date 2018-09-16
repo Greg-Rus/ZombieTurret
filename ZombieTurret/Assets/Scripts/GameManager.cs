@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     public ReactiveProperty<int> NumberOfDamageUpgradesReactive;
     public ReactiveProperty<int> TurretUpgradeCostReactive;
     public ReactiveProperty<int> TurretLevelReactive;
+    public ReactiveProperty<int> RoundReactiveProperty;
+
 
     public int Round = 1;
 
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
         NumberOfDamageUpgradesReactive = new ReactiveProperty<int>(NumberOfDamageUpgrades);
         TurretUpgradeCostReactive = new ReactiveProperty<int>(TurretUpgradeCost);
         TurretLevelReactive = new ReactiveProperty<int>(TurretLevel);
-
+        RoundReactiveProperty = new ReactiveProperty<int>(Round);
         CashReactive = new ReactiveProperty<int>(StartingCash);
         MaxHealth = BaseHealth;
         Health = MaxHealth;
@@ -75,7 +77,11 @@ public class GameManager : MonoBehaviour
         MessageBroker.Default.Receive<HealPlayerEvent>().Subscribe(_ => {
             healPlayer();
         } ).AddTo(gameObject);
-        MessageBroker.Default.Receive<RoundEnded>().Subscribe(_ => Round++).AddTo(gameObject);
+        MessageBroker.Default.Receive<RoundEnded>().Subscribe(_ =>
+        {
+            Round++;
+            RoundReactiveProperty.Value = Round;
+        }).AddTo(gameObject);
     }
 
     public void OnUpgradeHealth()

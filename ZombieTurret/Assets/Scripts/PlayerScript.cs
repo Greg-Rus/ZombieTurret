@@ -42,6 +42,7 @@ public class PlayerScript : MonoBehaviour
         {
             _shaftSpriteRenderer.sprite = SkinTurrets[Lvl].Shaft;
             _baseSpriteRenderer.sprite = SkinTurrets[Lvl].Base;
+            _bowSpriteRenderer.sprite = SkinTurrets[Lvl].BowRest;
         }).AddTo(gameObject);
         MessageBroker.Default.Receive<DamagePlayerEvent>().Select(evt => evt.Amount).Subscribe(TakeDamage);
     }

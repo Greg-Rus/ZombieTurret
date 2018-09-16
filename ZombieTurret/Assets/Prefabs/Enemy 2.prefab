@@ -796,7 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLife: 6
-  _gold: 2
+  _gold: 8
   _maxMovementSpeed: 2
   _minMovementSpeed: 0.5
   HealthBar: {fileID: 114984828286530140}

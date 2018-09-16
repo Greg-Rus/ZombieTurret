@@ -19,6 +19,7 @@ namespace Assets.Scripts.UI_Scripts
         public TextMeshProUGUI HealCost;
         public TextMeshProUGUI TurretUpgradeCost;
         public TextMeshProUGUI NumberOfTurretUpgrades;
+        public TextMeshProUGUI NumberOfWaves;
 
         public GameManager Manager;
 
@@ -77,6 +78,8 @@ namespace Assets.Scripts.UI_Scripts
             Manager.TurretUpgradeCostReactive.Subscribe(val => TurretUpgradeCost.text = val.ToString())
                 .AddTo(gameObject);
             HealCost.text = Manager.HealCost.ToString();
+
+            Manager.RoundReactiveProperty.Subscribe(lvl => { NumberOfWaves.text = "Wave:" + lvl; });
         }
 	
         // Update is called once per frame
