@@ -28,8 +28,6 @@ public class Timer : MonoBehaviour
     {
         PauseGameAfterTimerRunOut();
         FindObjectOfType<ShopController>().gameObject.Child("GameOverScreen").gameObject.SetActive(true);
-
-
     }
 
     public void Reset()
