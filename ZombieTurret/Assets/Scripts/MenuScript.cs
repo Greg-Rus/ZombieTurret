@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Assets.Scripts.UI_Scripts;
 using Unity.Linq;
 using System.Linq;
+using UniRx;
 
 public class MenuScript : MonoBehaviour
 { 
@@ -54,6 +55,7 @@ public class MenuScript : MonoBehaviour
         FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(false);
         FindObjectOfType<Timer>().Reset();
         FindObjectOfType<EnemySpawner>().StartSpawning();
+        MessageBroker.Default.Publish(new RoundEnded());
     }
 
     public void PauseGame()
@@ -73,4 +75,10 @@ public class MenuScript : MonoBehaviour
         FindObjectOfType<PlayerScript>().enabled = true;
         
     }
+
+
+}
+public class RoundEnded
+{
+
 }
