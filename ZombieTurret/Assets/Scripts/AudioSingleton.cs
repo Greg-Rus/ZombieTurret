@@ -9,6 +9,8 @@ public class AudioSingleton : MonoBehaviour
 
     public AudioClip[] list;
 
+    public AudioClip[] dyingSounds;
+
 
     private static AudioSingleton _instance;
 
@@ -35,7 +37,7 @@ public class AudioSingleton : MonoBehaviour
                 a.PlayOneShot(list[0]);
                 break;
             case SoundTypes.EnemyDead:
-                a.PlayOneShot(list[1]);
+                a.PlayOneShot(dyingSounds[Random.Range(0,dyingSounds.Length)]);
                 break;
             case SoundTypes.PlayerDead:
                 a.PlayOneShot(list[2]);
