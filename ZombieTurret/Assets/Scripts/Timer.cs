@@ -38,13 +38,8 @@ public class Timer : MonoBehaviour
 
     public void Reset()
     {
-<<<<<<< HEAD
-        minutes = 0;
-        seconds = 30;
-=======
         minutes = MaxMin;
         seconds = MaxSec;
->>>>>>> 0ebc1a2fc1e281c7ecc458d1bdf01a7f6a59f5fe
         milliseconds = 0;
         this.enabled = true;
     }
