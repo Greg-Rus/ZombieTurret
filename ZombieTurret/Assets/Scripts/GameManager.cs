@@ -8,6 +8,7 @@ using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
+    public bool countdownDone = false;
     public int MaxHealth;
     public int BaseHealth = 100;
 
