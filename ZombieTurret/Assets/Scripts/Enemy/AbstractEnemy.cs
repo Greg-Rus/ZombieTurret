@@ -68,6 +68,12 @@ namespace Enemy
 
         protected virtual void OnDeath()
         {
+            if (_gameObjectType == ObjectType.Pickup) {
+                AudioSingleton.Instance.playSounds(SoundTypes.PickupGold);
+            }
+            if (_gameObjectType == ObjectType.Knight) {
+                AudioSingleton.Instance.playSounds(SoundTypes.EnemyDead);
+            }
             var death = Instantiate(_deathEffect, transform, false);
             death.transform.SetParent(null);
             _movementDisposable.Dispose();

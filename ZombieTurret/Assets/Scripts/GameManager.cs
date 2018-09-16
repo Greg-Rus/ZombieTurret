@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     public ReactiveProperty<int> TurretUpgradeCostReactive;
     public ReactiveProperty<int> TurretLevelReactive;
 
+    public int Round = 1;
+
 
     public int GetHealth()
     {
@@ -72,8 +74,8 @@ public class GameManager : MonoBehaviour
             .AddTo(gameObject);
         MessageBroker.Default.Receive<HealPlayerEvent>().Subscribe(_ => {
             healPlayer();
-
         } ).AddTo(gameObject);
+        MessageBroker.Default.Receive<RoundEnded>().Subscribe(_ => Round++).AddTo(gameObject);
     }
 
     public void OnUpgradeHealth()

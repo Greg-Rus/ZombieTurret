@@ -26,6 +26,7 @@ public class ExplosiveBarrel : AbstractEnemy {
 
     public void OnDestroy()
     {
+        AudioSingleton.Instance.playSounds(SoundTypes.Explosion);
         Instantiate(explosion, transform.position, Quaternion.identity);
         var hits = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (var i in hits)
