@@ -2562,6 +2562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0303cd4b4d8ae84aa8e4637e087f9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxMin: 0
+  MaxSec: 30
   timer: {fileID: 114478472688404030}
   minutes: 0
   seconds: 30

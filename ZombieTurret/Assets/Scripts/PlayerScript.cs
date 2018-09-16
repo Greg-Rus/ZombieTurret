@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.UI_Scripts;
 using Enemy;
@@ -108,5 +109,11 @@ public class PlayerScript : MonoBehaviour
     private float GetArrowForce()
     {
         return projectileForce * Manager.TurretLevel;
+    }
+
+    [Serializable]
+    private class SkinTurret
+    {
+
     }
 }
