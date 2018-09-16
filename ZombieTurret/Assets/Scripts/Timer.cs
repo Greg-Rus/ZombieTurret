@@ -18,6 +18,7 @@ public class Timer : MonoBehaviour
 
     public void Start()
     {
+        timer.text = "Timeleft: " + string.Format("{0}:{1}:{2}", minutes, seconds, (int)milliseconds);
         MessageBroker.Default.Receive<PlayerDiedEvent>().Subscribe(_ => {
             OnEndGame();
             Debug.Log("Timer");
@@ -40,45 +41,54 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-
-        if (milliseconds <= 0)
+        if (FindObjectOfType<GameManager>().countdownDone == true)
         {
-            if (seconds <= 0)
+            if (milliseconds <= 0)
             {
-                minutes--;
-                seconds = 59;
+                if (seconds <= 0)
+                {
+                    minutes--;
+                    seconds = 59;
+                }
+                else if (seconds >= 0)
+                {
+                    seconds--;
+                }
+
+                milliseconds = 100;
             }
-            else if (seconds >= 0)
+
+            milliseconds -= Time.deltaTime * 100;
+
+            timer.text = "Timeleft: " + string.Format("{0}:{1}:{2}", minutes, seconds, (int)milliseconds);
+            if (minutes <= 0.0f && seconds <= 0.0f && milliseconds <= 1.0f)
             {
-                seconds--;
+                PauseGameAfterTimerRunOut();
+                FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(true);
+                //var EnemyList = FindObjectsOfTypeAll(typeof(AbstractEnemy)).Cast<AbstractEnemy>().ToList();
+                //EnemyList.ForEach(x =>
+                //{
+                //    DestroyImmediate(x.gameObject);
+                //});
+                MessageBroker.Default.Publish(new DestroyGameObjectsOfTypeEvent() { ObjectTypeToDestroy = ObjectType.All });
             }
 
-            milliseconds = 100;
         }
-
-        milliseconds -= Time.deltaTime * 100;
-
-        timer.text = "Timeleft: " + string.Format("{0}:{1}:{2}", minutes, seconds, (int)milliseconds);
-        if(minutes <= 0.0f && seconds <= 0.0f && milliseconds <= 1.0f)
-        {
-            PauseGameAfterTimerRunOut();
-            FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(true);
-            //var EnemyList = FindObjectsOfTypeAll(typeof(AbstractEnemy)).Cast<AbstractEnemy>().ToList();
-            //EnemyList.ForEach(x =>
-            //{
-            //    DestroyImmediate(x.gameObject);
-            //});
-            MessageBroker.Default.Publish(new DestroyGameObjectsOfTypeEvent(){ObjectTypeToDestroy = ObjectType.All});
-        }
-
     }
-        void PauseGameAfterTimerRunOut()
+        public void PauseGameAfterTimerRunOut()
         {
             this.enabled = false;
             FindObjectOfType<EnemySpawner>().SpawnerDisposable.Dispose();
             FindObjectOfType<PlayerScript>().enabled = false;
             
         }
+
+        public void UnPauseAfterCountDown()
+    {
+        this.enabled = true;
+        FindObjectOfType<EnemySpawner>().StartSpawning();
+        FindObjectOfType<PlayerScript>().enabled = true;
+    }
 
         
 }
