@@ -24,7 +24,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
@@ -36,7 +36,7 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: -1
-    aniso: 1
+    aniso: -1
     mipBias: -100
     wrapU: 1
     wrapV: 1
@@ -113,49 +113,9 @@ TextureImporter:
       name: countdown_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 144
-        width: 48
-        height: 81
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e97e0088fcf1de4ca178e285000984b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: countdown_1
-      rect:
-        serializedVersion: 2
-        x: 83
-        y: 145
-        width: 48
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ef04f463c18be0d48b270a5cc2743afb
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: countdown_2
-      rect:
-        serializedVersion: 2
-        x: 158
-        y: 145
-        width: 24
+        x: 35
+        y: 155
+        width: 50
         height: 79
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -164,7 +124,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc66fa6362f8c5146a40326546fc15de
+      spriteID: ceabc86717c26d04e9c0c6c36afa3f2e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: countdown_1
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 178
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7c85f4b193cbf149a8c39195eeedc7a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: countdown_2
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 178
+        width: 36
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1f4d0f74a79ca043a66dfae71978294
       vertices: []
       indices: 
       edges: []
@@ -173,10 +173,10 @@ TextureImporter:
       name: countdown_3
       rect:
         serializedVersion: 2
-        x: 7
-        y: 10
-        width: 106
-        height: 81
+        x: 35
+        y: 20
+        width: 192
+        height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,7 +184,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b2f812dedae11d46b6e2733322892ac
+      spriteID: c35dd89c0612c4a46823330e67e79844
       vertices: []
       indices: 
       edges: []
@@ -192,7 +192,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: bf40bf1a4a300bf4ebb4e464a5cd0784
+    spriteID: 84a036146177e204cbb21d475f3a49c6
     vertices: []
     indices: 
     edges: []
