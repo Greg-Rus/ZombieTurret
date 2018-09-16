@@ -30,7 +30,13 @@ public class ExplosiveBarrel : AbstractEnemy {
         var hits = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (var i in hits)
         {
-            i.GetComponent<AbstractEnemy>().applyDamage(100);
+            var abstractEnemy = i.GetComponent<AbstractEnemy>();
+            if (abstractEnemy != null &&
+                (abstractEnemy._gameObjectType == ObjectType.Knight ||
+                abstractEnemy._gameObjectType == ObjectType.Ranged))
+            {
+                abstractEnemy.applyDamage(100);
+            }
         }
     }
     // Use this for initialization

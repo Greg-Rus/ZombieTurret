@@ -23,7 +23,7 @@ namespace Enemy
         [SerializeField] private int _damageAmount;
         [SerializeField] private GameObject _bloodEffect;
         [SerializeField] protected GameObject _deathEffect;
-        [SerializeField] private ObjectType _gameObjectType;
+        [SerializeField] public ObjectType _gameObjectType;
 
         protected Rigidbody2D _rigidBody;
 
