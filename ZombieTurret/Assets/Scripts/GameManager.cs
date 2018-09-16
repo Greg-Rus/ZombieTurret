@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1;
         HealthUpgradeCostReactive = new ReactiveProperty<int>(HealthUpgradeCost);
         NumberOfHealthUpgradesReactive = new ReactiveProperty<int>(NumberOfHealthUpgrades);
         DamageUpgradeCostReactive = new ReactiveProperty<int>(DamageUpgradeCost);
