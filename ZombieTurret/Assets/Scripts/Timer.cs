@@ -33,8 +33,8 @@ public class Timer : MonoBehaviour
 
     public void Reset()
     {
-        minutes = 1;
-        seconds = 20;
+        minutes = 0;
+        seconds = 30;
         milliseconds = 0;
         this.enabled = true;
     }

@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
 
     public int StartingCash = 100;
 
+    public float BaseEnemySpawnDelay = 2;
+    public float SpawnDelayFactor;
+
     public ReactiveProperty<int> HealthUpgradeCostReactive;
     public ReactiveProperty<int> NumberOfHealthUpgradesReactive;
     public ReactiveProperty<int> DamageUpgradeCostReactive;
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     public int Round = 1;
 
+    public EnemySpawner EnemySpawnerScript;
 
     public int GetHealth()
     {
@@ -66,8 +70,11 @@ public class GameManager : MonoBehaviour
         CashReactive = new ReactiveProperty<int>(StartingCash);
         MaxHealth = BaseHealth;
         Health = MaxHealth;
-
         Damage = BaseDamage;
+
+        EnemySpawnerScript = GetComponent<EnemySpawner>();
+        EnemySpawnerScript.EnemySpawnDelay = BaseEnemySpawnDelay;
+
         MessageBroker.Default.Receive<PlayerLifeUpdatedEvent>().Subscribe(evt => { Health = evt.Life; })
             .AddTo(gameObject);
         MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { CashReactive.Value += evt.Gold; })
@@ -75,7 +82,11 @@ public class GameManager : MonoBehaviour
         MessageBroker.Default.Receive<HealPlayerEvent>().Subscribe(_ => {
             healPlayer();
         } ).AddTo(gameObject);
-        MessageBroker.Default.Receive<RoundEnded>().Subscribe(_ => Round++).AddTo(gameObject);
+        MessageBroker.Default.Receive<RoundEnded>().Subscribe(_ =>
+        {
+            Round++;
+            EnemySpawnerScript.EnemySpawnDelay *= SpawnDelayFactor;
+        }).AddTo(gameObject);
     }
 
     public void OnUpgradeHealth()
