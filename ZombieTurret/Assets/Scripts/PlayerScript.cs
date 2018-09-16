@@ -123,6 +123,12 @@ public class PlayerScript : MonoBehaviour
         get { return  Manager.TurretLevel > 3 ? 2 : Manager.TurretLevel - 1; }
     }
 
+    public int Life
+    {
+        get { return _life; }
+        set { _life = value; }
+    }
+
     private float GetArrowForce()
     {
         return projectileForce * Manager.TurretLevel;

@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
         HealthUpgradeCostReactive.Value = CurrentHealthUpgradeCost();
         NumberOfHealthUpgradesReactive.Value = NumberOfHealthUpgrades;
         CashReactive.SetValueAndForceNotify(CashReactive.Value);
+        FindObjectOfType<PlayerScript>().Life = Health;
     }
 
     public void OnUpgradeDamage()
@@ -129,6 +130,7 @@ public class GameManager : MonoBehaviour
         CashReactive.Value -= HealCost;
         Health = MaxHealth;
         CashReactive.SetValueAndForceNotify(CashReactive.Value);
+        FindObjectOfType<PlayerScript>().Life = Health;
     }
 
     public int CurrentHealthUpgradeCost()
