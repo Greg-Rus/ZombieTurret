@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int _maxLife;
     private int _life;
 
+    private bool playerAlive = true;
 
     Vector3 aimPosition;
 
@@ -80,7 +81,11 @@ public class PlayerScript : MonoBehaviour
         BroadcastLife();
         if (_life <= 0)
         {
-            AudioSingleton.Instance.playSounds(SoundTypes.PlayerDead);
+            if (playerAlive) {
+                AudioSingleton.Instance.playSounds(SoundTypes.PlayerDead);
+                playerAlive = false;
+            }
+           
             MessageBroker.Default.Publish(new PlayerDiedEvent());
             ;
             Debug.Log("Player died");
