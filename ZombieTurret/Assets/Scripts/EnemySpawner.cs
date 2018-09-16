@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _minimumY;
     [SerializeField] private float _maximumY;
 
-    public int EnemySpawnDelay = 2;
+    public float EnemySpawnDelay = 2;
     public CompositeDisposable SpawnerDisposable = new CompositeDisposable();
 
 
@@ -27,8 +27,7 @@ public class EnemySpawner : MonoBehaviour
     public void StartSpawning()
     {
         SpawnerDisposable = new CompositeDisposable();
-        Observable.Interval(TimeSpan.FromSeconds(EnemySpawnDelay)).Subscribe(_ => SpawnEnemy()).AddTo(SpawnerDisposable)
-            .AddTo(gameObject);
+        RestartSpawnerObservable();
     }
 
     public void SpawnEnemy()
@@ -37,5 +36,16 @@ public class EnemySpawner : MonoBehaviour
         var rnd = Random.Range(0, 2);
 
         Instantiate(rnd == 0 ? EnemyPrefab : EnemyPrefab2, _spawnPosition, Quaternion.identity);
+    }
+
+    public void RestartSpawnerObservable()
+    {
+        if (SpawnerDisposable.Count > 0)
+        {
+            SpawnerDisposable.Dispose();
+        }
+        Observable.Interval(TimeSpan.FromSeconds(EnemySpawnDelay)).Subscribe(_ => SpawnEnemy()).AddTo(SpawnerDisposable)
+            .AddTo(gameObject);
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.UI_Scripts;
 using Enemy;
@@ -18,14 +19,16 @@ public class PlayerScript : MonoBehaviour
     public float projectileForce = 500;
 
     [SerializeField] private SpriteRenderer _shaftSpriteRenderer;
+    [SerializeField] private SpriteRenderer _baseSpriteRenderer;
+    [SerializeField] private SpriteRenderer _bowSpriteRenderer;
 
-    [SerializeField] private Sprite BowPulled;
-    [SerializeField] private Sprite BowRest;
     private bool canShoot;
 
     private GameManager Manager;
 
     public Sprite[] ArrowSprites;
+
+    public List<SkinTurret> SkinTurrets;
 
     // Use this for initialization
     void Start()
@@ -35,7 +38,12 @@ public class PlayerScript : MonoBehaviour
         BroadcastLife();
 
         Manager = FindObjectOfType<GameManager>();
-
+        Manager.TurretLevelReactive.Subscribe(lvl =>
+        {
+            _shaftSpriteRenderer.sprite = SkinTurrets[Lvl].Shaft;
+            _baseSpriteRenderer.sprite = SkinTurrets[Lvl].Base;
+            _bowSpriteRenderer.sprite = SkinTurrets[Lvl].BowRest;
+        }).AddTo(gameObject);
         MessageBroker.Default.Receive<DamagePlayerEvent>().Select(evt => evt.Amount).Subscribe(TakeDamage);
     }
 
@@ -72,7 +80,9 @@ public class PlayerScript : MonoBehaviour
         BroadcastLife();
         if (_life <= 0)
         {
+            AudioSingleton.Instance.playSounds(SoundTypes.PlayerDead);
             MessageBroker.Default.Publish(new PlayerDiedEvent());
+            ;
             Debug.Log("Player died");
         }
     }
@@ -85,15 +95,16 @@ public class PlayerScript : MonoBehaviour
     IEnumerator Shoot()
     {
         canShoot = false;
-        _shaftSpriteRenderer.sprite = BowPulled;
+        _bowSpriteRenderer.sprite = SkinTurrets[Lvl].BowPulled;
         var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
         var bullet = Instantiate(bulletPrefab, transform.position, q);
         var arrowScript = bullet.GetComponent<ArrowScript>();
+        AudioSingleton.Instance.playSounds(SoundTypes.Arrow);
         arrowScript.Damage = Manager.Damage;
         bullet.GetComponentInChildren<SpriteRenderer>().sprite = GetSpriteForTurretTear();
         bullet.transform.SetParent(_shaftSpriteRenderer.transform);
         yield return new WaitForSeconds(0.2f);
-        _shaftSpriteRenderer.sprite = BowRest;
+        _bowSpriteRenderer.sprite = SkinTurrets[Lvl].BowRest;
         bullet.transform.SetParent(null);
         bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * GetArrowForce());
         arrowScript.EnableArrowCollisions();
@@ -102,11 +113,27 @@ public class PlayerScript : MonoBehaviour
 
     private Sprite GetSpriteForTurretTear()
     {
-        return Manager.TurretLevel <= Manager.MaxTurretLevel ? ArrowSprites[Manager.TurretLevel - 1] : ArrowSprites[Manager.MaxTurretLevel - 1];
+        return Manager.TurretLevel <= Manager.MaxTurretLevel
+            ? ArrowSprites[Manager.TurretLevel - 1]
+            : ArrowSprites[Manager.MaxTurretLevel - 1];
+    }
+
+    private int Lvl
+    {
+        get { return  Manager.TurretLevel > 3 ? 2 : Manager.TurretLevel - 1; }
     }
 
     private float GetArrowForce()
     {
         return projectileForce * Manager.TurretLevel;
     }
+}
+
+[Serializable]
+public class SkinTurret
+{
+    public Sprite Base;
+    public Sprite BowPulled;
+    public Sprite BowRest;
+    public Sprite Shaft;
 }
