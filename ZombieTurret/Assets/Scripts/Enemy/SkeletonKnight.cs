@@ -35,7 +35,7 @@ namespace Enemy
 
         private void AttackLogic(float distance)
         {
-            AudioSingleton.Instance.playSounds(SoundTypes.Attack);
+            
             if (distance <= AttackDistance)
             {
                 Attack();
@@ -52,7 +52,7 @@ namespace Enemy
         protected override void Attack()
         {
             if (_knightAttackTimer.Count == 0)
-                Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(x => { DoDamage(); })
+                Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(x => { DoDamage();  })
                     .AddTo(_knightAttackTimer)
                     .AddTo(gameObject);
         }

@@ -59,6 +59,7 @@ namespace Enemy
 
         protected void DoDamage()
         {
+            AudioSingleton.Instance.playSounds(SoundTypes.Attack);
             MessageBroker.Default.Publish(new DamagePlayerEvent {Amount = _damageAmount});
         }
 
@@ -68,9 +69,6 @@ namespace Enemy
 
         protected virtual void OnDeath()
         {
-            if (_gameObjectType == ObjectType.Pickup) {
-                AudioSingleton.Instance.playSounds(SoundTypes.PickupGold);
-            }
             if (_gameObjectType == ObjectType.Knight) {
                 AudioSingleton.Instance.playSounds(SoundTypes.EnemyDead);
             }

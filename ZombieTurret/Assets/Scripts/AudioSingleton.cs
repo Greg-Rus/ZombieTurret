@@ -29,30 +29,31 @@ public class AudioSingleton : MonoBehaviour
 
 
     public  void playSounds(SoundTypes s) {
+        Debug.Log(s);
         switch (s) { 
             case SoundTypes.Arrow:
-                a.PlayOneShot(list[1]);
+                a.PlayOneShot(list[0]);
                 break;
             case SoundTypes.EnemyDead:
-                a.PlayOneShot(list[2]);
+                a.PlayOneShot(list[1]);
                 break;
             case SoundTypes.PlayerDead:
-                a.PlayOneShot(list[3]);
+                a.PlayOneShot(list[2]);
                 break;
             case SoundTypes.Attack:
-                a.PlayOneShot(list[4]);
+                a.PlayOneShot(list[3]);
                 break;
             case SoundTypes.Explosion:
-                a.PlayOneShot(list[5]);
+                a.PlayOneShot(list[4]);
                 break;
             case SoundTypes.PickupGold:
-                a.PlayOneShot(list[6]);
+                a.PlayOneShot(list[5]);
                 break;
             case SoundTypes.PickupHealth:
-                a.PlayOneShot(list[7]);
+                a.PlayOneShot(list[6]);
                 break;
             case SoundTypes.ShopMenu:
-                a.PlayOneShot(list[0]);
+                a.PlayOneShot(list[7]);
                 break;
         }
     }
