@@ -191,7 +191,7 @@ MonoBehaviour:
   HealCost: 30
   StartingCash: 100
   BaseEnemySpawnDelay: 2
-  SpawnDelayFactor: 0
+  SpawnDelayFactor: 0.8
   Round: 1
   EnemySpawnerScript: {fileID: 0}
 --- !u!1001 &246065206
